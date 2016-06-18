@@ -102,5 +102,10 @@
 
 .cellTable .coming-up
 {
-  background-color: yellow
+  background-color: yellow;
+}
+
+.cellTable .completed
+{
+  background-color: #00FF00;
 }

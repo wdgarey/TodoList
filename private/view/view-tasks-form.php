@@ -29,13 +29,18 @@
         $deadline = $task->IsDeadlineSet () ? $task->GetDeadline () : '-';
         $completed = $task->IsCompletedSet () ? $task->GetCompleted () : '-';
 
-        if ($deadline !== '-' && time() > strtotime ($deadline))
+
+        if ($completed !== '-')
         {
-            echo ('<tr class="past-due">');
+          echo ('<tr class="completed">');
+        }
+        else if ($deadline !== '-' && time() > strtotime ($deadline))
+        {
+          echo ('<tr class="past-due">');
         }
         else if ($deadline !== '-' && time () > (strtotime ($deadline) - (60*60*24*7)))
         {
-            echo ('<tr class="coming-up">');
+          echo ('<tr class="coming-up">');
         }
         else if ($count % 2 == 0)
         {
