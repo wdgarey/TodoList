@@ -3,22 +3,38 @@ class Task
 {
   public function Task()
   {
-    $this->SetCompleted (-1);
-    $this->SetDeadline (-1);
-    $this->SetDescription (-1);
-    $this->SetId (-1);
-    $this->SetInterim (-1);
-    $this->SetTitle (-1);
+    $this->SetCompleted (false);
+    $this->SetDeadline (false);
+    $this->SetDescription (false);
+    $this->SetId (false);
+    $this->SetInterim (false);
+    $this->SetTitle (false);
+  }
+
+  public function Initialize ($array)
+  {
+    if (isset ($array['id']))
+    { $this->SetId ($array['id']); }
+    if (isset ($array['title']))
+    { $this->SetTitle ($array['title']); }
+    if (isset ($array['description']))
+    { $this->SetDescription ($array['description']); }
+    if (isset ($array['deadline']))
+    { $this->SetDeadline ($array['deadline']); }
+    if (isset ($array['interim']))
+    { $this->SetInterim ($array['interim']); }
+    if (isset ($array['completed']))
+    { $this->SetCompleted ($array['completed']); }
   }
 
   public function IsCompletedSet () { return $this->IsVarSet ($this->GetCompleted ()); }
-  public function IsDeadlineSet () { return $this-IsVarSet ($this->GetDeadline ()); }
+  public function IsDeadlineSet () { return $this->IsVarSet ($this->GetDeadline ()); }
   public function IsDescriptionSet () { return $this->IsVarSet ($this->GetDescription ()); }
   public function IsIdSet () { return $this->IsVarSet ($this->GetId ()); }
   public function IsInterimSet () { return $this->IsVarSet ($this->GetInterim ()); }
   public function IsTitleSet () { return $this->IsVarSet ($this->GetTitle ()); }
 
-  protected function IsVarSet ($var) { return ($var !== -1); }
+  protected function IsVarSet ($var) { return !(empty ($var)); }
 
   private $m_completed;
   private $m_deadline;

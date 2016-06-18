@@ -41,30 +41,26 @@ case 'Logout':
   Controller::Logout ();
   break;
 case 'AddTask':
-  //Controller::AddTask ();
-  //break;
+  Controller::AddTask ();
+  break;
 case 'ProcessAddEditTask':
-  //Controller::ProcessAddEditTask ();
-  //break; 
+  Controller::ProcessAddEditTask ();
+  break; 
 case 'ViewTask':
-  //Controller::ViewTask ();
-  //break;
+  Controller::ViewTask ();
+  break;
 case 'EditTask':
-  //Controller::EditTask ();
-  //break;
+  Controller::EditTask ();
+  break;
 case 'DeleteTask':
-  //Controller::DeleteTask ();
-  //break;
+  Controller::DeleteTask ();
+  break;
 case 'MarkTaskComplete':
   //Controller::MarkTaskComplete ();
   //break;
-case 'SearchTasks':
-case 'ProcessSearchTasks':
 case 'ViewTasks':
 default:
-  //Controller::ViewTasks ();
-  $message = 'No more cases.';
-  include ('../private/view/message-form.php');
+  Controller::ViewTasks ();
   break;
 }
 

@@ -32,20 +32,7 @@ class Model
       {
         $task = new Task ();
 
-        $task->SetCompleted ($result['completed']);
-        $task->SetDescription ($result['description']);
-        $task->SetId ($result['id']);
-        $task->SetTitle ($result['title']);
-
-        if (isset ($result['deadline']))
-        {
-          $task->SetDeadline ($result['deadline']);
-
-          if (isset ($result['interim']))
-          {
-            $task->SetInterim ($result['interim']);
-          }
-        }
+        $task->Initialize ($result);
 
         $tasks[] = $task;
       }
@@ -61,7 +48,7 @@ class Model
     return $tasks;
   }
 
-  public static function GetTasks ($completed)
+  public static function GetTasks ($option = 0)
   {
     $tasks = false;
 
@@ -71,14 +58,18 @@ class Model
 
       $query = "SELECT * ";
       $query .= "FROM todolist.task ";
-      $query .= "WHERE completed IS ";
 
-      if ($completed == true)
+      if ($option != 0)
       {
-        $query .= "NOT ";
-      }
+        $query .= "WHERE completed IS ";
 
-      $query .= "NULL ";
+        if ($option == -1)
+        {
+          $query .= "NOT ";
+        }
+
+        $query .= "NULL ";
+      }
       $query .= "ORDER BY deadline DESC;";
 
       $statement = $db->prepare ($query);
@@ -95,20 +86,7 @@ class Model
       {
         $task = new Task ();
 
-        $task->SetCompleted ($result['completed']);
-        $task->SetDescription ($result['description']);
-        $task->SetId ($result['id']);
-        $task->SetTitle ($result['title']);
-
-        if (isset ($result['deadline']))
-        {
-          $task->SetDeadline ($result['deadline']);
-
-          if (isset ($result['interim']))
-          {
-            $task->SetInterim ($result['interim']);
-          }
-        }
+        $task->Initialize ($result);
 
         $tasks[] = $task;
       }
@@ -133,13 +111,13 @@ class Model
       $db = Model::GetDbConnection ();
 
       $query = "UPDATE todolist ";
-      $query .= "SET completed = :date ";
+      $query .= "SET completed = Date(:date) ";
       $query .= "WHERE id = :id;";
       
       $statement = $db->prepare ($query);
 
-      $statement->bindValue (':id', $id);
-      $statement->bindValue (':date', $date);
+      $statement->bindValue (':id', $id, PDO::PARAM_INT);
+      $statement->bindValue (':date', $date, PD::PARAM_STR);
 
       $success = $statement->execute ();
 
@@ -168,7 +146,7 @@ class Model
 
       $statement = $db->prepare ($query);
 
-      $statement->bindValue (':id', $id);
+      $statement->bindValue (':id', $id, PDO::PARAM_INT);
 
       $successs = $statement->execute ();
 
@@ -192,37 +170,22 @@ class Model
     {
       $db = Model::GetDbConnection ();
 
-      $query = "UPDATE todolist ";
+      $query = "UPDATE todolist.task ";
       $query .= "SET title = :title, description = :description";
-      
-      if ($task->IsDeadlineSet ())
-      {
-        $query .= ", deadline = DATE(:deadline)";
-        
-        if ($task->IsInterimSet ())
-        {
-          $query .= ", interim = :interim ";
-        }
-      } 
-
+      $query .= ", deadline = DATE(:deadline)";
+      $query .= ", interim = :interim";
+      $query .= ", completed = DATE(:completed)";
       $query .= " WHERE id = :id";
       $query .= ";";
 
       $statement = $db->prepare ($query);
 
-      $statement->bindValue (':title', $task->GetTitle ());
-      $statement->bindValue (':description', $task->GetDescription ());
-      $statement->bindValue (':id', $task->GetId ());
-
-      if ($task->IsDeadlineSet ())
-      {
-        $statement->bindValue (':deadline', $task->GetDeadline ());
-
-        if ($task->IsInterimSet ())
-        {
-          $statement->bindValue (':interim', $task->GetInterim ());
-        }
-      }
+      $statement->bindValue (':title', $task->GetTitle (), PDO::PARAM_STR);
+      $statement->bindValue (':description', $task->GetDescription (), PDO::PARAM_STR);
+      $statement->bindValue (':id', $task->GetId (), PDO::PARAM_INT);
+      $statement->bindValue (':deadline', $task->GetDeadline (), PDO::PARAM_STR);
+      $statement->bindValue (':interim', $task->IsInterimSet () ? $task->GetInterim () : null, $task->IsInterimSet () ? PDO::PARAM_INT : PDO::PARAM_NULL);
+      $statement->bindValue (':completed', $task->GetCompleted (), PDO::PARAM_STR);
 
       $success = $statement->execute ();
 
@@ -248,10 +211,11 @@ class Model
       $query = "SELECT * ";
       $query .= "FROM todolist.task ";
       $query .= "WHERE id = :id";
+      $query .= ";";
 
       $statement = $db->prepare ($query);
 
-      $statement->bindValue (':id', $id);
+      $statement->bindValue (':id', $id, PDO::PARAM_INT);
 
       $statement->execute ();
 
@@ -261,20 +225,7 @@ class Model
 
       $task = new Task ();
 
-      $task->SetCompleted ($results['completed']);
-      $task->SetDescription ($results['description']);
-      $task->SetId ($results['id']);
-      $task->SetTitle ($results['title']);
-
-      if (isset ($results['deadline']))
-      {
-        $task->SetDeadline ($results['deadline']);
-
-        if (isset ($results['interim']))
-        {
-          $task->SetInterim ($results['interim']);
-        }
-      }
+      $task->Initialize ($results);
     }
     catch (PDOException $e)
     {
@@ -283,7 +234,7 @@ class Model
       die ();
     }
 
-    return task;
+    return $task;
   }
   public static function AddTask ($task)
   {
@@ -293,7 +244,7 @@ class Model
     {
       $db = Model::GetDbConnection ();
 
-      $query = "INSERT INTO todolist (title, description";
+      $query = "INSERT INTO todolist.task (title, description";
       
       if ($task->IsDeadlineSet ())
       {
@@ -322,16 +273,16 @@ class Model
 
       $statement = $db->prepare ($query);
 
-      $statement->bindValue (':title', $task->GetTitle ());
-      $statement->bindValue (':description', $task->GetDescription ());
+      $statement->bindValue (':title', $task->GetTitle (), PDO::PARAM_STR);
+      $statement->bindValue (':description', $task->GetDescription (), PDO::PARAM_STR);
 
       if ($task->IsDeadlineSet ())
       {
-        $statement->bindValue (':deadline', $task->GetDeadline ());
+        $statement->bindValue (':deadline', $task->GetDeadline (), PDO::PARAM_STR);
 
         if ($task->IsInterimSet ())
         {
-          $statement->bindValue (':interim', $task->GetInterim ());
+          $statement->bindValue (':interim', $task->GetInterim (), PDO::PARAM_INT);
         }
       }
 

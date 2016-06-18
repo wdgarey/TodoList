@@ -55,8 +55,9 @@
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tasks<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                      <li><a href="<?php echo (Utils::GetScript ('ViewTasks&Completed=TRUE')); ?>">View Completed Tasks</a></li>
-                      <li><a href="<?php echo (Utils::GetScript ('ViewTasks&Completed=FALSE')); ?>">View Uncompleted Tasks</a></li>
+                      <li><a href="<?php echo (Utils::GetScript ('ViewTasks&option=0')); ?>">View All Tasks</a></li>
+                      <li><a href="<?php echo (Utils::GetScript ('ViewTasks&option=1')); ?>">View Completed Tasks</a></li>
+                      <li><a href="<?php echo (Utils::GetScript ('ViewTasks&option=-1')); ?>">View Uncompleted Tasks</a></li>
                       <li class="divider"></li>
                       <!--<li class="dropdown-header">More</li>-->
                       <li><a href="<?php echo (Utils::GetScript ('AddTask')); ?>">Add Task</a></li>

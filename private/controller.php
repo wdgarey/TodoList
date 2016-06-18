@@ -5,35 +5,101 @@ require_once ('../private/classes/utils.php');
 
 class Controller
 {
-  public static function RequestTo ($action)
+  public static function ViewTasks ()
   {
-    $script = Utils::GetScript ($action);
+    $option = 0;
 
-    Utils::Redirect ($script);
-  }
-
-  public static function IsUserLoggedIn ()
-  {
-    $loggedIn = isset ($_SESSION['username']);
-
-    return $loggedIn;
-  }
-
-  public static function GetUsername ()
-  {
-    $username = '';
-    
-    if (Controller::IsUserLoggedIn ())
+    if (isset ($_POST['option']))
     {
-      $username = $_SESSION['username'];
+      $option = $_POST['option'];
+    }
+    else if (isset ($_GET['option']))
+    {
+      $option = $_GET['option'];
     }
 
-    return $username;
+    $tasks = Model::GetTasks ($option);
+
+    include ('../private/view/view-tasks-form.php');
+  }
+  public static function DeleteTask ()
+  {
+    if (isset ($_POST['id']))
+    {
+      $id = $_POST['id'];
+    }
+    else if (isset ($_GET['id']))
+    {
+      $id = $_GET['id'];
+    }
+
+    Model::DeleteTask ($id);
+
+    Controller::RequestTo ('ViewTasks');
+  }
+  public static function EditTask ()
+  {
+    if (isset ($_POST['id']))
+    {
+      $id = $_POST['id'];
+    }
+    else if (isset ($_GET['id']))
+    {
+      $id = $_GET['id'];
+    }
+
+    $task = Model::GetTask ($id);
+
+    include ('../private/view/add-edit-task-form.php');
   }
 
-  public static function SetUsername ($username)
+  public static function ViewTask ()
   {
-    $_SESSION['username'] = $username;
+    if (isset ($_POST['id']))
+    {
+      $id = $_POST['id'];
+    }
+    else if (isset ($_GET['id']))
+    {
+      $id = $_GET['id'];
+    }
+
+    $task = Model::GetTask ($id);
+
+    include ('../private/view/view-task-form.php');
+  }
+
+  public static function ProcessAddEditTask ()
+  {
+    $task = new Task ();
+
+    if (isset ($_POST['title']))
+    {
+      $task->Initialize ($_POST);
+    }
+    else if (isset ($_GET['title']))
+    {
+      $task->Initialize ($_GET);
+    }
+
+    if ($task->IsIdSet ())
+    {
+      $id = $task->GetId ();
+      Model::UpdateTask ($task);
+    }
+    else
+    {
+      $id = Model::AddTask ($task);
+    }
+
+    Controller::RequestTo ('ViewTask&id=' . $id);
+  }
+
+  public static function AddTask ()
+  {
+    $task = new Task ();
+
+    include ('../private/view/add-edit-task-form.php');
   }
 
   public static function Login ()
@@ -77,29 +143,42 @@ class Controller
     include ('../private/view/login-form.php');
   }
 
-  public static function ViewTasks()
-  {
-    $selectedId = 0;
-
-    if (isset($_POST['ProjectId']))
-    {
-      $selectedId = $_POST['ProjectId'];
-    }
-    else if (isset($_GET['ProjectId']))
-    {
-      $selectedId = $_GET['ProjectId'];
-    }
-
-    $projects = GetProjects ();
-
-    include ('./private/view-project.php');
-  }
-
   public static function Logout ()
   {
     Utils::DestroySession ();
 
     Controller::RequestTo ('Login');
+  }
+
+  public static function IsUserLoggedIn ()
+  {
+    $loggedIn = isset ($_SESSION['username']);
+
+    return $loggedIn;
+  }
+
+  public static function GetUsername ()
+  {
+    $username = '';
+    
+    if (Controller::IsUserLoggedIn ())
+    {
+      $username = $_SESSION['username'];
+    }
+
+    return $username;
+  }
+
+  public static function SetUsername ($username)
+  {
+    $_SESSION['username'] = $username;
+  }
+
+  public static function RequestTo ($action)
+  {
+    $script = Utils::GetScript ($action);
+
+    Utils::Redirect ($script);
   }
 }
 ?>

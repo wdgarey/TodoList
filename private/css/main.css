@@ -1,3 +1,13 @@
+.inline
+{
+  display: inline-block;
+}
+
+.add-edit-task label
+{
+  width: 100px;
+}
+
 .navbar-space
 {
   margin-top: 50px;
@@ -52,4 +62,45 @@
 .red-font
 {
   color: red;
+}
+
+.cellTable
+{
+	border: solid 1px #999;
+	font-size: 12px;
+	margin: auto;
+	width: 100%;
+}
+
+.cellTable .oddRow
+{
+	background-color:#9CC;
+}
+
+.cellTable th
+{
+  text-align: center;
+	background: #f8ffe8;
+	background: -moz-linear-gradient(top, #f8ffe8 0%, #e3f5ab 33%, #b7df2d 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f8ffe8), color-stop(33%, #e3f5ab), color-stop(100%, #b7df2d));
+	background: -webkit-linear-gradient(top, #f8ffe8 0%, #e3f5ab 33%, #b7df2d 100%);
+	background: -o-linear-gradient(top, #f8ffe8 0%, #e3f5ab 33%, #b7df2d 100%);
+	background: -ms-linear-gradient(top, #f8ffe8 0%, #e3f5ab 33%, #b7df2d 100%);
+	background: linear-gradient(top, #f8ffe8 0%, #e3f5ab 33%, #b7df2d 100%);
+	border-bottom: solid 1px #999;
+}
+
+.cellTable td
+{
+  text-align: center;
+}
+
+.cellTable .past-due
+{
+  background-color: red;
+}
+
+.cellTable .coming-up
+{
+  background-color: yellow
 }

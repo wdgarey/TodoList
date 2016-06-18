@@ -18,7 +18,7 @@ CREATE TABLE task
 (
 	id int UNSIGNED NOT NULL UNIQUE AUTO_INCREMENT,
 	title varchar(40) NOT NULL,
-	description varchar(100) NOT NULL,
+	description text NOT NULL DEFAULT '',
 	completed date,
 	deadline date,
 	interim int UNSIGNED,
