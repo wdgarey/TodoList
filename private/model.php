@@ -173,7 +173,6 @@ class Model
       $query = "UPDATE todolist.task ";
       $query .= "SET title = :title, description = :description";
       $query .= ", deadline = DATE(:deadline)";
-      $query .= ", interim = :interim";
       $query .= ", completed = DATE(:completed)";
       $query .= " WHERE id = :id";
       $query .= ";";
@@ -184,7 +183,6 @@ class Model
       $statement->bindValue (':description', $task->GetDescription (), PDO::PARAM_STR);
       $statement->bindValue (':id', $task->GetId (), PDO::PARAM_INT);
       $statement->bindValue (':deadline', $task->GetDeadline (), PDO::PARAM_STR);
-      $statement->bindValue (':interim', $task->IsInterimSet () ? $task->GetInterim () : null, $task->IsInterimSet () ? PDO::PARAM_INT : PDO::PARAM_NULL);
       $statement->bindValue (':completed', $task->GetCompleted (), PDO::PARAM_STR);
 
       $success = $statement->execute ();
@@ -249,11 +247,6 @@ class Model
       if ($task->IsDeadlineSet ())
       {
         $query .= ", deadline";
-        
-        if ($task->IsInterimSet ())
-        {
-          $query .= ", interim";
-        }
       } 
 
       $query .= ") ";
@@ -262,11 +255,6 @@ class Model
       if ($task->IsDeadlineSet ())
       {
         $query .= ", DATE(:deadline)";
-        
-        if ($task->IsInterimSet ())
-        {
-          $query .= ", :interim ";
-        }
       }
     
       $query .= ");";
@@ -279,11 +267,6 @@ class Model
       if ($task->IsDeadlineSet ())
       {
         $statement->bindValue (':deadline', $task->GetDeadline (), PDO::PARAM_STR);
-
-        if ($task->IsInterimSet ())
-        {
-          $statement->bindValue (':interim', $task->GetInterim (), PDO::PARAM_INT);
-        }
       }
 
       $statement->execute ();

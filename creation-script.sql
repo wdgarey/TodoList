@@ -18,10 +18,9 @@ CREATE TABLE task
 (
 	id int UNSIGNED NOT NULL UNIQUE AUTO_INCREMENT,
 	title varchar(40) NOT NULL,
-	description text NOT NULL DEFAULT '',
+	description text NOT NULL,
 	completed date,
 	deadline date,
-	interim int UNSIGNED,
 	CONSTRAINT TASK_PK PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 

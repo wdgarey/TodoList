@@ -89,6 +89,20 @@ class Controller
     }
     else
     {
+      if (isset ($_POST['interim']))
+      {
+        $interim = $_POST['interim'];
+      }
+      else if (isset ($_GET['interim']))
+      {
+        $interim = $_GET['interim'];
+      }
+
+      if (isset ($interim))
+      {
+        $task->SetDeadline (date ('Y-m-d', (time() + ($interim * 24 * 60 * 60))));
+      }
+
       $id = Model::AddTask ($task);
     }
 

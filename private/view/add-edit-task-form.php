@@ -26,11 +26,6 @@
   (leave blank if there is no deadline)
   <br />
   <br />
-  <label>Interim</label>
-  <input type="number" name="interim" value="<?php echo ($task->GetInterim ()); ?>" class="" min="0" step="1" placeholder="(e.g. 7)" />
-  day(s) (leave blank if the task is not recurring)
-  <br />
-  <br />
   <label>Completed:</label>
   <input type="date" name="completed" value="<?php echo (Utils::GetHtmlSafe ($task->GetCompleted ())); ?>" class="" placeholder="(e.g. 6/15/2016)" />
   (leave blank if the task has not been completed)

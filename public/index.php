@@ -55,9 +55,6 @@ case 'EditTask':
 case 'DeleteTask':
   Controller::DeleteTask ();
   break;
-case 'MarkTaskComplete':
-  //Controller::MarkTaskComplete ();
-  //break;
 case 'ViewTasks':
 default:
   Controller::ViewTasks ();
