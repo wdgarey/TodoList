@@ -1,5 +1,5 @@
 <?php
-  include ('../private/includes/header-include.php');
+  include ('../../private/TodoList/includes/header-include.php');
 ?>
 <?php if ($option == 1) { ?>
 <h1>Completed Tasks</h1>
@@ -82,5 +82,5 @@
   </tbody>
 </table>
 <?php
-  include ('../private/includes/footer-include.php');
+  include ('../../private/TodoList/includes/footer-include.php');
 ?>

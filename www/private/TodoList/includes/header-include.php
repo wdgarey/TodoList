@@ -24,17 +24,17 @@
 
         <title><?php echo($dTitle); ?></title>
 
-        <link rel='shortcut icon' href='../private/images/icon.ico' />
+        <link rel='shortcut icon' href='../../private/TodoList/images/icon.ico' />
 
-        <link rel='stylesheet' href='../private/css/main.css' />
-        <link rel='stylesheet' href='../private/css/bootstrap.css' />
+        <link rel='stylesheet' href='../../private/TodoList/css/main.css' />
+        <link rel='stylesheet' href='../../private/TodoList/css/bootstrap.css' />
         
-        <script type='text/javascript' src='../private/js/jquery-1.9.1.min.js'></script>
-        <script type='text/javascript' src='../private/js/bootstrap.js'></script>
-        <script type='text/javascript' src='../private/js/javascript.js'></script>
-        <script type='text/javascript' src='../private/js/jquery.tablesorter.js'></script>
-        <script type='text/javascript' src='../private/js/jquery.validate.js'></script>
-        <script type='text/javascript' src='../private/js/navbar.js'></script>
+        <script type='text/javascript' src='../../private/TodoList/js/jquery-1.9.1.min.js'></script>
+        <script type='text/javascript' src='../../private/TodoList/js/bootstrap.js'></script>
+        <script type='text/javascript' src='../../private/TodoList/js/javascript.js'></script>
+        <script type='text/javascript' src='../../private/TodoList/js/jquery.tablesorter.js'></script>
+        <script type='text/javascript' src='../../private/TodoList/js/jquery.validate.js'></script>
+        <script type='text/javascript' src='../../private/TodoList/js/navbar.js'></script>
     </head>
     <body>
       <?php if (Controller::IsUserLoggedIn()) { ?>

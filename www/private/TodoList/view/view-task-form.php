@@ -1,5 +1,5 @@
 <?php
-  include ('../private/includes/header-include.php');
+  include ('../../private/TodoList/includes/header-include.php');
 ?>
 <h1>View Task</h1>
 <div class="add-edit-task">
@@ -43,5 +43,5 @@
   <input type="number" name="interim" value="1" min="0" step="1"/> day(s)
 </form>
 <?php
-  include ('../private/includes/footer-include.php');
+  include ('../../private/TodoList/includes/footer-include.php');
 ?>

@@ -1,5 +1,5 @@
 <?php
-require_once ('../private/classes/task.php');
+require_once ('../../private/TodoList/classes/task.php');
 
 class Model
 {
@@ -63,14 +63,15 @@ class Model
       {
         $query .= "WHERE completed IS ";
 
-        if ($option == -1)
+        if ($option == 1)
         {
           $query .= "NOT ";
         }
 
         $query .= "NULL ";
       }
-      $query .= "ORDER BY deadline DESC;";
+
+      $query .= "ORDER BY deadline ASC;";
 
       $statement = $db->prepare ($query);
 

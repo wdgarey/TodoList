@@ -1,9 +1,0 @@
-<?php
-    include('../private/includes/header-include.php');
-?>
-<?php
-    include('../private/includes/message-include.php');
-?>
-<?php
-    include('../private/includes/footer-include.php');
-?>

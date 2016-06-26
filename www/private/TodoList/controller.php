@@ -1,13 +1,13 @@
 <?php
-require_once ('../private/model.php');
-require_once ('../private/classes/task.php');
-require_once ('../private/classes/utils.php');
+require_once ('../../private/TodoList/model.php');
+require_once ('../../private/TodoList/classes/task.php');
+require_once ('../../private/TodoList/classes/utils.php');
 
 class Controller
 {
   public static function ViewTasks ()
   {
-    $option = 0;
+    $option = -1;
 
     if (isset ($_POST['option']))
     {
@@ -20,7 +20,7 @@ class Controller
 
     $tasks = Model::GetTasks ($option);
 
-    include ('../private/view/view-tasks-form.php');
+    include ('../../private/TodoList/view/view-tasks-form.php');
   }
   public static function DeleteTask ()
   {
@@ -50,7 +50,7 @@ class Controller
 
     $task = Model::GetTask ($id);
 
-    include ('../private/view/add-edit-task-form.php');
+    include ('../../private/TodoList/view/add-edit-task-form.php');
   }
 
   public static function ViewTask ()
@@ -66,7 +66,7 @@ class Controller
 
     $task = Model::GetTask ($id);
 
-    include ('../private/view/view-task-form.php');
+    include ('../../private/TodoList/view/view-task-form.php');
   }
 
   public static function ProcessAddEditTask ()
@@ -113,7 +113,7 @@ class Controller
   {
     $task = new Task ();
 
-    include ('../private/view/add-edit-task-form.php');
+    include ('../../private/TodoList/view/add-edit-task-form.php');
   }
 
   public static function Login ()
@@ -121,7 +121,7 @@ class Controller
     $username = '';
     $password = '';
 
-    include ('../private/view/login-form.php');
+    include ('../../private/TodoList/view/login-form.php');
   }
 
   public static function ProcessLogin ()
@@ -154,7 +154,7 @@ class Controller
     $message = 'Invalid login';
     $password = '';
 
-    include ('../private/view/login-form.php');
+    include ('../../private/TodoList/view/login-form.php');
   }
 
   public static function Logout ()
