@@ -1,5 +1,5 @@
 <?php
-require_once ('../../private/TodoList/classes/task.php');
+require_once ('../private/classes/task.php');
 
 class Model
 {

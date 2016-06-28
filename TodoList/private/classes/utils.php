@@ -47,7 +47,7 @@ class Utils
    */
   public static function GetScript ($action)
   {
-    $script = '../../html/TodoList/index.php' . '?' . 'Action' . '=' . $action;
+    $script = '../public/index.php' . '?' . 'Action' . '=' . $action;
 
     return $script;
   }

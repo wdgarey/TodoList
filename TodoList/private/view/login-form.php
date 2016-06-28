@@ -1,10 +1,10 @@
 <?php
-    include('../../private/TodoList/includes/header-include.php');
+    include('../private/includes/header-include.php');
 ?>
 <?php
     if (isset($message))
     {
-        include('../private/includes/message-include.php');
+        include('../private/sage-include.php');
     }
 ?>
 
@@ -18,5 +18,5 @@
 </form>
 
 <?php
-    include('../../private/TodoList/includes/footer-include.php');
+    include('../private/includes/footer-include.php');
 ?>

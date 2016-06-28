@@ -1,8 +1,8 @@
 <?php
 error_reporting (E_ALL);
 
-require_once ('../../private/TodoList/controller.php');
-require_once ('../../private/TodoList/classes/utils.php');
+require_once ('../private/controller.php');
+require_once ('../private/classes/utils.php');
 
 Utils::AdjustQuotes ();
 Utils::TrackSession ();
