@@ -327,8 +327,8 @@ class Model
   public static function GetDbConnection ()
   {
     $dsn = 'mysql:host=localhost;dbname=todolist';
-    $username = 'appuser';
-    $password = 'appuser123';
+    $username = 'todolistwebuser';
+    $password = 'todolistwebuser1234';
 
     try
     {

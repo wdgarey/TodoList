@@ -1,12 +1,12 @@
 #DROP DATABASE todolist;
 CREATE DATABASE todolist;
 
-#CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'appuser123';
-GRANT SELECT, UPDATE, INSERT, DELETE ON todolist.* TO 'appuser'@'localhost';
+#CREATE USER 'todolistwebuser'@'localhost' IDENTIFIED BY 'todolistwebuser1234';
+GRANT SELECT, UPDATE, INSERT, DELETE ON todolist.* TO 'todolistwebuser'@'localhost';
 
 USE todolist;
 
-CREATE TABLE user
+CREATE TABLE todolist.user
 (
 	id int UNSIGNED NOT NULL UNIQUE AUTO_INCREMENT,
 	username varchar(32) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE user
 	CONSTRAINT USER_PK PRIMARY KEY (username)
 ) ENGINE=InnoDB;
 
-CREATE TABLE task
+CREATE TABLE todolist.task
 (
 	id int UNSIGNED NOT NULL UNIQUE AUTO_INCREMENT,
 	title varchar(40) NOT NULL,
@@ -26,4 +26,5 @@ CREATE TABLE task
 
 INSERT INTO user (id, username, pwd)
 VALUES
-(1, 'wdgarey', Sha1('pimp99'));
+(1, 'wesley', Sha1('pimp99')),
+(2, 'victoria', Sha1('1234'));
